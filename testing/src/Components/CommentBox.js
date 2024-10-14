@@ -6,6 +6,24 @@ import * as actions from 'actions'
 class CommentBox extends Component{
 
     state = {comment: ''}
+
+    //Component just rendered
+    componentDidMount(){
+
+    }
+
+    componentDidUpdate(){
+        this.shouldNavigateAway();
+    }
+
+    shouldNavigateAway(){
+        if(!this.props.auth){
+            console.log("leave");
+            debugger
+            this.props.history.push('/');
+        }
+    }
+
     handleChange = (event) =>{
         this.setState({comment: event.target.value})
     }
@@ -35,6 +53,9 @@ class CommentBox extends Component{
     }
 }
 
+function mapStateToProps(state){
+    return {auth: state.auth};
+}
 
-export default connect(null,actions)(CommentBox);
+export default connect(mapStateToProps,actions)(CommentBox);
 
