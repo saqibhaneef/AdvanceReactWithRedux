@@ -7,7 +7,18 @@ const router = require('./router');
 const mongoose = require('mongoose');
 
 //db setup
-mongoose.connect('https://localhost:27017')
+mongoose.connect(
+    "mongodb://127.0.0.1:27017/auth",
+    (err, data) => {
+        if(err){
+            console.log(err || data);
+        }
+        if(data){
+            console.log("mongodb connected");
+        }
+    }
+  );
+
 
 //app setup
 app.use(morgan('combined'));
@@ -15,7 +26,7 @@ app.use(bodyParser.json({type: '*/*'}))
 router(app);
 
 //server setup
-const port = process.env.PORT || 3090;
+const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 server.listen(port,()=>{
     console.log('server is listening on port',port);
