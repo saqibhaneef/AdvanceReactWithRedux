@@ -5,6 +5,7 @@ const http = require('http');
 const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 //db setup
 mongoose.connect(
@@ -20,7 +21,10 @@ mongoose.connect(
   );
 
 
+
+
 //app setup
+app.use(cors());
 app.use(morgan('combined'));
 app.use(bodyParser.json({type: '*/*'}))
 router(app);
